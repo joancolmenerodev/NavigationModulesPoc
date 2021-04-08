@@ -1,0 +1,5 @@
+include ':featuretwo'
+include ':featureone'
+include ':navigation'
+include ':app'
+rootProject.name = "NavigationBetweenModulesPOC"
