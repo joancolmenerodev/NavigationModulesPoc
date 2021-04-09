@@ -12,6 +12,8 @@ import com.joancolmenerodev.navigationbetweenmodulespoc.navigators.FromFeatureTw
 
 open class App : Application(), FeatureOneComponentProvider, FeatureTwoComponentProvider {
 
+    //This in our case should be on AppComponent so each submodule would see it
+
     override val featureOneComponent: FeatureOneComponent
         get() = DaggerFeatureOneComponent.factory().create(FromFeatureOneImpl(applicationContext))
 

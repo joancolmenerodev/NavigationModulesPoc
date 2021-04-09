@@ -8,6 +8,7 @@ import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import com.google.android.material.snackbar.Snackbar
+import com.joancolmenerodev.featuretwo.di.FeatureTwoActivityModule
 import com.joancolmenerodev.featuretwo.di.FeatureTwoComponentProvider
 import com.joancolmenerodev.navigation.di.NavigationStarterModule
 import dagger.Binds
@@ -27,6 +28,15 @@ class FeatureTwoActivity : AppCompatActivity(), FeatureTwoContract.View {
 
     private val url by lazy {
         intent.extras?.getString(URL_ARGS)
+    }
+
+    companion object {
+        fun buildIntent(context: Context, title: String, url: String): Intent {
+            return Intent(context, FeatureTwoActivity::class.java).apply {
+                putExtra(TITLE_ARGS, title)
+                putExtra(URL_ARGS, url)
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,22 +61,6 @@ class FeatureTwoActivity : AppCompatActivity(), FeatureTwoContract.View {
         presenter.goBack()
     }
 
-    @Module
-    interface FeatureTwoActivityModule {
-        @Binds
-        fun bindView(
-            impl: FeatureTwoActivity
-        ): FeatureTwoContract.View
-
-        @Binds
-        fun bindActivity(impl: FeatureTwoActivity): Activity
-
-        @Binds
-        fun bindPresenter(
-            impl: FeatureTwoPresenterImpl
-        ): FeatureTwoContract.Presenter
-    }
-
     @Subcomponent(modules = [FeatureTwoActivityModule::class, NavigationStarterModule::class])
     interface Component {
         fun inject(activity: FeatureTwoActivity)
@@ -74,15 +68,6 @@ class FeatureTwoActivity : AppCompatActivity(), FeatureTwoContract.View {
         @Subcomponent.Factory
         interface Factory {
             fun create(@BindsInstance activity: FeatureTwoActivity): Component
-        }
-    }
-
-    companion object {
-        fun buildIntent(context: Context, title: String, url: String): Intent {
-            return Intent(context, FeatureTwoActivity::class.java).apply {
-                putExtra(TITLE_ARGS, title)
-                putExtra(URL_ARGS, url)
-            }
         }
     }
 }
