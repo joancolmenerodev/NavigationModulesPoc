@@ -8,17 +8,17 @@ import dagger.Binds
 import dagger.Module
 
 @Module
-interface FeatureOneActivityModule {
+abstract class FeatureOneActivityModule {
     @Binds
-    fun bindView(
+    abstract fun bindView(
         impl: FeatureOneActivity
     ): FeatureOneContract.View
 
     @Binds
-    fun bindActivity(impl: FeatureOneActivity): Activity
+    abstract fun bindActivity(impl: FeatureOneActivity): Activity
 
     @Binds
-    fun bindPresenter(
+    abstract fun bindPresenter(
         impl: FeatureOnePresenterImpl
     ): FeatureOneContract.Presenter
 }
