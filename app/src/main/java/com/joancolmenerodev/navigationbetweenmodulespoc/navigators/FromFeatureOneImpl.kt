@@ -9,7 +9,7 @@ import javax.inject.Inject
 class FromFeatureOneImpl @Inject constructor(private val context: Context) : FromFeatureOne {
 
     override fun openFeatureTwo(title: String, url: String) =
-        NavigationAction(
+        NavigationAction.IntentNavigationAction(
             FeatureTwoActivity.buildIntent(context, title, url)
         )
 }

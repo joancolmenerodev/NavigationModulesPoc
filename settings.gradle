@@ -1,3 +1,4 @@
+include ':featuredfragment'
 include ':featuretwo'
 include ':featureone'
 include ':navigation'
